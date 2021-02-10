@@ -12,9 +12,7 @@ class EventRepositoryImpl(private val eventService: EventService): EventReposito
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .map {
-                convertEvents(it).sortedBy { event ->
-                    event.start
-                }
+                convertEvents(it)
             }
 
 }

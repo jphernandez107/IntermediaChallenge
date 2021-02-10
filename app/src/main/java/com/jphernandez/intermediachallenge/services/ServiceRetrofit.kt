@@ -1,5 +1,6 @@
 package com.jphernandez.intermediachallenge.services
 
+import com.jphernandez.intermediachallenge.data.OrderByEnum
 import com.jphernandez.intermediachallenge.dto.QueryResultDto
 import io.reactivex.Observable
 import retrofit2.Retrofit
@@ -16,7 +17,14 @@ interface ServiceRetrofit {
     fun getCharacterById(@Path("characterId") characterId: Long, @Query("apikey") apiKey: String = "3a783b25c80e1c44875356dd363f272d", @Query("hash") hash: String = "51a3ecf2f92a23817992a2663183325e", @Query("ts") ts: String = "1"): Observable<QueryResultDto>
 
     @GET("/v1/public/events?")
-    fun getEventsList(@Query("offset") offset: Int = 0, @Query("limit") limit: Int = 25, @Query("apikey") apiKey: String = "3a783b25c80e1c44875356dd363f272d", @Query("hash") hash: String = "51a3ecf2f92a23817992a2663183325e", @Query("ts") ts: String = "1"): Observable<QueryResultDto>
+    fun getEventsList(
+        @Query("offset") offset: Int = 0,
+        @Query("limit") limit: Int = 25,
+        @Query("orderBy") orderBy: String = "-startDate",
+        @Query("apikey") apiKey: String = "3a783b25c80e1c44875356dd363f272d",
+        @Query("hash") hash: String = "51a3ecf2f92a23817992a2663183325e",
+        @Query("ts") ts: String = "1"
+    ): Observable<QueryResultDto>
 
 
     companion object {
