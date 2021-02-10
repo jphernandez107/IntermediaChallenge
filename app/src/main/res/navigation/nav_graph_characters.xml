@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph_characters"
+    app:startDestination="@id/characterListFragment"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <fragment
+        android:id="@+id/characterListFragment"
+        android:name="com.jphernandez.intermediachallenge.characterList.CharacterListFragment"
+        android:label="Marvel Challenge"
+        tools:layout="@layout/character_list_fragment">
+        <action
+            android:id="@+id/action_characterListFragment_to_characterDetailsFragment"
+            app:destination="@id/characterDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/characterDetailsFragment"
+        android:name="com.jphernandez.intermediachallenge.characterDetails.CharacterDetailsFragment"
+        android:label="{CHARACTER_NAME}"
+        tools:layout="@layout/character_detail_fragment" >
+    </fragment>
+
+
+</navigation>

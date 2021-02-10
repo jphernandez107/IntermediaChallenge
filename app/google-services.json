@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1057962120630",
+    "project_id": "itermediachallenge",
+    "storage_bucket": "itermediachallenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057962120630:android:0cd0f3d348ab1559c79d17",
+        "android_client_info": {
+          "package_name": "com.jphernandez.intermediachallenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057962120630-ula6vuu648hjgcje55fuck1vnnjgbs5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1ym4eYvRXJUJvIux8WlBbkxuIe3mqAZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057962120630-ula6vuu648hjgcje55fuck1vnnjgbs5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
