@@ -8,6 +8,14 @@ import com.jphernandez.intermediachallenge.dto.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ *
+ * En este archivo se encuentran todas las funciones
+ * encargadas de convertir los objetos recibidos
+ * de la api en objetos de datos
+ *
+ */
+
 fun convertCharacters(queryResultDto: QueryResultDto) =
     queryResultDto.data.results.map(::convertCharacter)
 
@@ -55,7 +63,11 @@ fun convertComic(comicDto: ComicDto) =
         comicDto.name
     )
 
-
+/**
+ * Esta funcion se encarga de convertir un string con la fecha
+ * que devulve la api en una string con la fecha en el formato
+ * requerido por el diseño
+ */
 fun dateConverter(stringDate: String?): String {
     if(stringDate == null) return ""
     val cal = Calendar.getInstance()
