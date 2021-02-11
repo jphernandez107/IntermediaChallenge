@@ -51,7 +51,6 @@ class FirebaseUIActivity : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
-                val user = FirebaseAuth.getInstance().currentUser
                 startNextActivity() // Iniciamos el activity siguiente porque estamos logueados
             } else {
                 if (response == null) {
