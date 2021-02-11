@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jphernandez.intermediachallenge.R
 import com.jphernandez.intermediachallenge.data.Character
 import com.jphernandez.intermediachallenge.helpers.displayThumbnail
 
-class CharactersAdapter(private val onCharacterClick: (Character) -> Unit): ListAdapter<Character, CharactersAdapter.ViewHolder>(CharacterDiffCallback) {
+class CharactersAdapter(private val onCharacterClick: (Character) -> Unit): PagingDataAdapter<Character, CharactersAdapter.ViewHolder>(CharacterDiffCallback) {
 
     class ViewHolder(view: View, val onCharacterClick: (Character) -> Unit): RecyclerView.ViewHolder(view) {
         val characterImageView: ImageView = view.findViewById(R.id.character_image)

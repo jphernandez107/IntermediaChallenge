@@ -1,20 +1,20 @@
 package com.jphernandez.intermediachallenge.characterList
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagingData
 import com.jphernandez.intermediachallenge.data.Character
 import com.jphernandez.intermediachallenge.repositories.CharacterRepository
 
 class CharacterListVM(private val characterRepository: CharacterRepository): ViewModel() {
 
-    val charactersLiveData: MutableLiveData<List<Character>> = MutableLiveData()
+    var charactersLiveData: LiveData<PagingData<Character>> = MutableLiveData()
 
-    fun requestCharacters() {
-        characterRepository.getCharacters().subscribe{
-            charactersLiveData.postValue(it)
-        }
+    fun requestCharacters(pageSize: Int = 15) {
+        charactersLiveData = characterRepository.getCharacters(pageSize = pageSize)
     }
 }
 
