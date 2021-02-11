@@ -1,20 +1,32 @@
 package com.jphernandez.intermediachallenge.characterList
 
+import android.util.Log
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.jphernandez.intermediachallenge.data.Character
 import com.jphernandez.intermediachallenge.repositories.CharacterRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class CharacterListVM(private val characterRepository: CharacterRepository): ViewModel() {
 
-    var charactersLiveData: LiveData<PagingData<Character>> = MutableLiveData()
+    val charactersLiveData: MutableLiveData<PagingData<Character>> = MutableLiveData()
 
-    fun requestCharacters(pageSize: Int = 15) {
-        charactersLiveData = characterRepository.getCharacters(pageSize = pageSize)
+    fun requestCharacters() {
+        viewModelScope.launch(Dispatchers.IO) {
+            characterRepository.getCharacters(15)
+                .cachedIn(viewModelScope)
+                .collect { results ->
+                    charactersLiveData.postValue(results)
+                    Log.d("CharacterListVM Juaann", "The results are: $results")
+                }
+        }
     }
 }
 

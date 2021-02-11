@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import com.jphernandez.intermediachallenge.application.IntermediaChallengeApplic
 import com.jphernandez.intermediachallenge.characterDetails.CharacterDetailsFragment
 import com.jphernandez.intermediachallenge.data.Character
 import com.jphernandez.intermediachallenge.repositories.CharacterRepository
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
@@ -43,13 +45,6 @@ class CharacterListFragment: Fragment() {
 
         adapter = CharactersAdapter { character -> onCharacterClick(character) }
         recyclerView?.adapter = adapter
-
-        if(isNetworkConnected()) {
-            viewModel.requestCharacters(PAGE_LIST_SIZE)
-            setLoading(true)
-        } else {
-            Snackbar.make(requireActivity().findViewById(R.id.nav_host_fragment), "No internet connection", Snackbar.LENGTH_LONG).show()
-        }
         return view
     }
 
@@ -58,12 +53,21 @@ class CharacterListFragment: Fragment() {
         val emptyListTextView = view.findViewById<TextView>(R.id.empty_list_text_view)
 
         viewModel.charactersLiveData.observe(viewLifecycleOwner, Observer {
-//            lifecycleScope.launch {
-                adapter.submitData(lifecycle, it)
+            lifecycleScope.launch {
+                adapter.submitData(it)
                 emptyListTextView.visibility = View.GONE
-//            }
+            }
             setLoading(false)
         })
+
+        if(isNetworkConnected()) {
+            if(savedInstanceState == null) {
+                viewModel.requestCharacters()
+                setLoading(true)
+            }
+        } else {
+            Snackbar.make(requireActivity().findViewById(R.id.nav_host_fragment), "No internet connection", Snackbar.LENGTH_LONG).show()
+        }
     }
 
     private fun onCharacterClick(character: Character) {

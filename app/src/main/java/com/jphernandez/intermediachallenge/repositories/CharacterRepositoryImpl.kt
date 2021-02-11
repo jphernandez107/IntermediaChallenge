@@ -11,17 +11,18 @@ import com.jphernandez.intermediachallenge.helpers.convertUniqueCharacter
 import com.jphernandez.intermediachallenge.services.CharacterService
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.flow.Flow
 
 class CharacterRepositoryImpl(private val characterService: CharacterService): CharacterRepository {
 
-    override fun getCharacters(pageSize: Int): LiveData<PagingData<Character>> {
+    override fun getCharacters(pageSize: Int): Flow<PagingData<Character>> {
         return Pager(
             config = PagingConfig(
                 pageSize = pageSize,
                 enablePlaceholders = true
             ),
             pagingSourceFactory = { CharacterPagingSource(characterService) }
-        ).liveData
+        ).flow
     }
 
     override fun getCharacterById(id: Long): Observable<Character> =
