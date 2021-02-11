@@ -1,5 +1,6 @@
 package com.jphernandez.intermediachallenge.repositories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -30,6 +31,9 @@ class CharacterRepositoryImpl(private val characterService: CharacterService): C
             .subscribeOn(Schedulers.io())
             .map {
                 convertUniqueCharacter(it)
+            }.onErrorReturn {
+                Log.e("CharacterRepositoryImpl", "An error has occurred", it)
+                Character(-1,"", "", "", "", null, null)
             }
 
 }

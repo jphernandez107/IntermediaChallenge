@@ -6,6 +6,6 @@ data class Character(
     val description: String,
     val modified: String,
     val resourceURI: String,
-    val thumbnail: Thumbnail,
+    val thumbnail: Thumbnail?,
     val comics: List<Comic>?
 )

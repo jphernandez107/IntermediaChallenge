@@ -79,7 +79,7 @@ class CharacterDetailsFragment: Fragment() {
             characterDescription.visibility = View.VISIBLE
             characterDescription.text = character.description
         }
-        displayFullImage(character.thumbnail.path, character.thumbnail.extension, characterImage)
+        displayFullImage(character.thumbnail?.path, character.thumbnail?.extension, characterImage)
 
         comicsAdapter.submitList(character.comics)
         setLoading(false)

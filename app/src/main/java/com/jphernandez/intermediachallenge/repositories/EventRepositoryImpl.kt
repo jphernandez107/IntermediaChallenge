@@ -1,5 +1,6 @@
 package com.jphernandez.intermediachallenge.repositories
 
+import android.util.Log
 import com.jphernandez.intermediachallenge.data.Event
 import com.jphernandez.intermediachallenge.helpers.convertEvents
 import com.jphernandez.intermediachallenge.services.EventService
@@ -13,6 +14,9 @@ class EventRepositoryImpl(private val eventService: EventService): EventReposito
             .observeOn(Schedulers.io())
             .map {
                 convertEvents(it)
+            }.onErrorReturn {
+                Log.e("EventRepositoryImpl", "An error has occurred", it)
+                emptyList()
             }
 
 }

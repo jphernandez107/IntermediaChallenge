@@ -41,7 +41,6 @@ class CharactersAdapter(private val onCharacterClick: (Character) -> Unit): Pagi
         holder.character = getItem(position)
         holder.characterNameTextView.text = getItem(position)?.name ?: ""
         holder.characterDescriptionTextView.text = getItem(position)?.description ?: ""
-//        val thumbnailUrl = getItem(position).thumbnail.path + "." + getItem(position).thumbnail.extension
         displayThumbnail(getItem(position)?.thumbnail?.path, getItem(position)?.thumbnail?.extension, holder.characterImageView)
     }
 }

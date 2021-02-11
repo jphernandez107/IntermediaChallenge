@@ -1,6 +1,7 @@
 package com.jphernandez.intermediachallenge.characterList
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.jphernandez.intermediachallenge.data.Character
 import com.jphernandez.intermediachallenge.helpers.convertCharacters
 import com.jphernandez.intermediachallenge.services.CharacterService
@@ -24,6 +25,10 @@ class CharacterPagingSource(private val characterService: CharacterService): Pag
         } catch (e: HttpException) {
             return LoadResult.Error(e)
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
+        return state.anchorPosition?.let { state.closestPageToPosition(it)?.prevKey?.plus(4) ?: state.closestPageToPosition(it)?.nextKey?.minus(4) }
     }
 
 }
