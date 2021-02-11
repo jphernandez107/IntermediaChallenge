@@ -10,13 +10,13 @@ import retrofit2.http.Query
 interface ServiceRetrofit {
 
     @GET("/v1/public/characters?")
-    fun getCharactersList(
+    suspend fun getCharactersList(
         @Query("offset") offset: Int = 0,
         @Query("limit") limit: Int = 15,
         @Query("apikey") apiKey: String = API_KEY,
         @Query("hash") hash: String = HASH_KEY,
         @Query("ts") ts: String = TS
-    ): Observable<QueryResultDto>
+    ): QueryResultDto
 
     @GET("/v1/public/characters/{characterId}")
     fun getCharacterById(

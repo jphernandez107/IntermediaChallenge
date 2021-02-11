@@ -5,9 +5,7 @@ import io.reactivex.Observable
 
 class CharacterServiceImpl(private val retrofit: ServiceRetrofit): CharacterService {
 
-    override fun getCharacters(offset: Int): Observable<QueryResultDto> {
-        return retrofit.getCharactersList(offset)
-    }
+    override suspend fun getCharacters(offset: Int): QueryResultDto = retrofit.getCharactersList(offset)
 
     override fun getCharacter(id: Long): Observable<QueryResultDto> = retrofit.getCharacterById(id)
 

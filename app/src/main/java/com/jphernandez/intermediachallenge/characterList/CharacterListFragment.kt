@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -46,7 +45,7 @@ class CharacterListFragment: Fragment() {
         recyclerView?.adapter = adapter
 
         if(isNetworkConnected()) {
-            viewModel.requestCharacters()
+            viewModel.requestCharacters(PAGE_LIST_SIZE)
             setLoading(true)
         } else {
             Snackbar.make(requireActivity().findViewById(R.id.nav_host_fragment), "No internet connection", Snackbar.LENGTH_LONG).show()
@@ -59,13 +58,10 @@ class CharacterListFragment: Fragment() {
         val emptyListTextView = view.findViewById<TextView>(R.id.empty_list_text_view)
 
         viewModel.charactersLiveData.observe(viewLifecycleOwner, Observer {
-            if (it.isNullOrEmpty()) {
-                adapter.submitList(mutableListOf())
-                emptyListTextView.visibility = View.VISIBLE
-            } else {
-                adapter.submitList(it)
+//            lifecycleScope.launch {
+                adapter.submitData(lifecycle, it)
                 emptyListTextView.visibility = View.GONE
-            }
+//            }
             setLoading(false)
         })
     }
@@ -82,6 +78,10 @@ class CharacterListFragment: Fragment() {
     private fun isNetworkConnected(): Boolean {
         val cm: ConnectivityManager = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return cm.activeNetwork != null && cm.activeNetworkInfo?.isConnected == true
+    }
+
+    companion object {
+        const val PAGE_LIST_SIZE = 15
     }
 
 }
